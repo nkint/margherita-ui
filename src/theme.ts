@@ -1,14 +1,5 @@
 import { Theme } from 'theme-ui'
 
-export const white = '#fff'
-export const lightGray = '#eee'
-export const darkGray = '#888'
-export const black = '#353839'
-export const red = '#da322a'
-export const green = '#42be65'
-export const yellow = '#f1c21b'
-export const blue = '#006bb4'
-
 const font = `'Roboto', 'Fira Sans', Arial, sans-serif;`
 
 export const opacities = [0.5, 0.7, 1]
@@ -19,18 +10,17 @@ export const theme: Partial<Theme> = {
     heading: font,
   },
   colors: {
-    text: black,
-    background: white,
+    text: '#353839',
+    background: '#fff',
 
     primary: 'tomato',
 
-    white,
-    lightGray,
-    black,
-    red,
-    green,
-    yellow,
-    blue,
+    lightGray: '#eee',
+    darkGray: '#888',
+    error: '#da322a',
+    green: '#42be65',
+    yellow: '#f1c21b',
+    blue: '#006bb4',
   },
   fontSizes: [12, 14, 16, 18],
   fontWeights: [300, 400, 600],
