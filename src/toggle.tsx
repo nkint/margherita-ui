@@ -21,7 +21,7 @@ export const Toggle: React.FC<ToggleProps> = ({
   return (
     <div
       sx={{
-        ' label': {
+        label: {
           // '-webkit-tap-highlight-color': '0',
           display: 'inline-block',
           verticalAlign: 'middle',
@@ -33,10 +33,9 @@ export const Toggle: React.FC<ToggleProps> = ({
           paddingRight: 0,
           position: 'relative',
           cursor: disabled ? 'not-allowed' : 'pointer',
-          opacity: disabled ? 0.4 : 1,
         },
 
-        ' input': {
+        input: {
           overflow: 'hidden',
           visibility: 'hidden',
           height: 0,
@@ -47,7 +46,7 @@ export const Toggle: React.FC<ToggleProps> = ({
           zIndex: -1,
         },
 
-        ' .body': {
+        '.body': {
           width: '1.75rem',
           height: '0.875rem',
           borderRadius: '0.875rem',
@@ -61,7 +60,7 @@ export const Toggle: React.FC<ToggleProps> = ({
           padding: 0,
         },
 
-        ' .handler': {
+        '.handler': {
           width: 'calc(0.875rem - 3px)',
           height: 'calc(0.875rem - 3px)',
           position: 'absolute',
@@ -74,25 +73,25 @@ export const Toggle: React.FC<ToggleProps> = ({
           backgroundColor: 'background',
         },
 
-        ' label .checked > .handler': {
+        'label .checked > .handler': {
           left: 'calc(100% - (0.875rem - 2px))',
           boxShadow: 'none',
         },
 
-        ' label .disabled': {
+        'label .disabled': {
           borderColor: 'darkGray',
         },
 
-        ' label .disabled > .handler': {
+        'label .disabled > .handler': {
           backgroundColor: 'darkGray',
           boxShadow: 'none',
         },
 
-        ' label .disabled.checked': {
+        'label .disabled.checked': {
           backgroundColor: 'lightGray',
         },
 
-        ' label .checked': {
+        'label .checked': {
           backgroundColor: 'primary',
         },
       }}
