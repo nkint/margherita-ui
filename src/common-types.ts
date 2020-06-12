@@ -1,8 +1,8 @@
-export type ICheckDisable = {
+export type CheckDisable = {
   checked: boolean
   disabled: boolean
 }
 
-export type IChange = {
+export type Change = {
   onChange?: (event: boolean) => void
 }
