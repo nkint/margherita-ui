@@ -1,12 +1,10 @@
 const font = `'Roboto', 'Fira Sans', Arial, sans-serif;`
-const opacities = [0.5, 0.7, 1]
 
 export const theme = {
   fonts: {
     body: font,
     heading: font,
   },
-  opacities,
   colors: {
     text: '#353839',
     background: '#fff',

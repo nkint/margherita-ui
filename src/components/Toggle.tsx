@@ -113,13 +113,11 @@ export const Toggle: FC<ToggleProps> = ({
   const cd: CheckDisable = { checked, disabled }
 
   return (
-    <div>
-      <LabelContainer {...cd}>
-        {children}
-        <Body {...cd} onChange={handleChange}>
-          <Handler {...cd} />
-        </Body>
-      </LabelContainer>
-    </div>
+    <LabelContainer {...cd}>
+      {children}
+      <Body {...cd} onChange={handleChange}>
+        <Handler {...cd} />
+      </Body>
+    </LabelContainer>
   )
 }
