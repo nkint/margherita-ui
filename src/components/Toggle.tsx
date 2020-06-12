@@ -2,6 +2,7 @@
 import { jsx } from 'theme-ui'
 import { FC, ChangeEvent, Fragment } from 'react'
 import { CheckDisable, Change } from './common-types'
+import { ifStyle } from '../lib/if-prop'
 
 type ToggleProps = Partial<CheckDisable> & Change
 
@@ -19,15 +20,15 @@ const Handler: FC<CheckDisable> = ({ checked, disabled }) => (
       borderRadius: '50%',
       border: '1px solid transparent',
       backgroundColor: 'background',
-      ...(checked
-        ? {
-            left: 'calc(100% - (0.875rem - 2px))',
-            boxShadow: 'none',
-          }
-        : {}),
-      ...(disabled
-        ? { backgroundColor: 'darkGray', boxShadow: 'none', borderColor: 'darkGray' }
-        : {}),
+      ...ifStyle(checked, {
+        left: 'calc(100% - (0.875rem - 2px))',
+        boxShadow: 'none',
+      }),
+      ...ifStyle(disabled, {
+        backgroundColor: 'darkGray',
+        boxShadow: 'none',
+        borderColor: 'darkGray',
+      }),
     }}
   />
 )
@@ -65,13 +66,11 @@ export const Body: FC<
         border: '1px solid transparent',
         backgroundColor: 'lightGray',
         padding: 0,
-        ...(disabled ? { borderColor: 'darkGray' } : {}),
-        ...(checked
-          ? {
-              backgroundColor: 'primary',
-            }
-          : {}),
-        ...(checked && disabled ? { backgroundColor: 'lightGray' } : {}),
+        ...ifStyle(disabled, { borderColor: 'darkGray' }),
+        ...ifStyle(checked, {
+          backgroundColor: 'primary',
+        }),
+        ...ifStyle(checked && disabled, { backgroundColor: 'lightGray' }),
       }}
     >
       {children}
@@ -93,7 +92,6 @@ export const LabelContainer: FC<CheckDisable> = ({ children, disabled, checked }
       paddingRight: 0,
       position: 'relative',
       cursor: disabled ? 'not-allowed' : 'pointer',
-      ...(checked ? {} : {}),
     }}
   >
     {children}
