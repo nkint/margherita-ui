@@ -6,53 +6,29 @@ import { ifStyle } from '../lib/if-prop'
 
 type ToggleProps = Partial<CheckDisable> & Change
 
-const Handler: FC<CheckDisable> = ({ checked, disabled }) => (
-  <span
+const Input: FC<
+  CheckDisable & { onChange: (e: ChangeEvent<HTMLInputElement>) => void }
+> = ({ disabled, checked, onChange }) => (
+  <input
+    type="checkbox"
+    disabled={disabled}
+    checked={checked}
+    onChange={onChange}
     sx={{
-      width: 'calc(0.875rem - 3px)',
-      height: 'calc(0.875rem - 3px)',
+      visibility: 'hidden',
       position: 'absolute',
-      top: '50%',
-      transform: 'translateY(-50%)',
-      left: '1px',
-      boxShadow: 'rgba(0, 0, 0, 0.2) 0 1px 2px 0, rgba(0, 0, 0, 0.2) 0 1px 3px 0',
-      transition: 'left 280ms cubic-bezier(0, 0, 0.2, 1)',
-      borderRadius: '50%',
-      border: '1px solid transparent',
-      backgroundColor: 'background',
-      ...ifStyle(checked, {
-        left: 'calc(100% - (0.875rem - 2px))',
-        boxShadow: 'none',
-      }),
-      ...ifStyle(disabled, {
-        backgroundColor: 'darkGray',
-        boxShadow: 'none',
-        borderColor: 'darkGray',
-      }),
+      height: 0,
+      width: 0,
+      opacity: 0,
+      overflow: 'hidden',
+      backgroundColor: 'transparent',
+      zIndex: -1,
     }}
   />
 )
 
-export const Body: FC<
-  CheckDisable & { onChange: (e: ChangeEvent<HTMLInputElement>) => void }
-> = ({ checked, disabled, children, onChange }) => (
+const ToggleHandler: FC<CheckDisable> = ({ checked, disabled }) => (
   <Fragment>
-    <input
-      type="checkbox"
-      disabled={disabled}
-      checked={checked}
-      onChange={onChange}
-      sx={{
-        visibility: 'hidden',
-        position: 'absolute',
-        height: 0,
-        width: 0,
-        opacity: 0,
-        overflow: 'hidden',
-        backgroundColor: 'transparent',
-        zIndex: -1,
-      }}
-    />
     <div
       sx={{
         width: '1.75rem',
@@ -73,12 +49,35 @@ export const Body: FC<
         ...ifStyle(checked && disabled, { backgroundColor: 'lightGray' }),
       }}
     >
-      {children}
+      <span
+        sx={{
+          width: 'calc(0.875rem - 3px)',
+          height: 'calc(0.875rem - 3px)',
+          position: 'absolute',
+          top: '50%',
+          transform: 'translateY(-50%)',
+          left: '1px',
+          boxShadow: 'rgba(0, 0, 0, 0.2) 0 1px 2px 0, rgba(0, 0, 0, 0.2) 0 1px 3px 0',
+          transition: 'left 280ms cubic-bezier(0, 0, 0.2, 1)',
+          borderRadius: '50%',
+          border: '1px solid transparent',
+          backgroundColor: 'background',
+          ...ifStyle(checked, {
+            left: 'calc(100% - (0.875rem - 2px))',
+            boxShadow: 'none',
+          }),
+          ...ifStyle(disabled, {
+            backgroundColor: 'darkGray',
+            boxShadow: 'none',
+            borderColor: 'darkGray',
+          }),
+        }}
+      />
     </div>
   </Fragment>
 )
 
-export const LabelContainer: FC<CheckDisable> = ({ children, disabled, checked }) => (
+export const Label: FC<Partial<CheckDisable>> = ({ children, disabled }) => (
   <label
     sx={{
       // '-webkit-tap-highlight-color': '0',
@@ -108,14 +107,11 @@ export const Toggle: FC<ToggleProps> = ({
     onChange(event.currentTarget.checked)
   }
 
-  const cd: CheckDisable = { checked, disabled }
-
   return (
-    <LabelContainer {...cd}>
+    <Label disabled={disabled}>
       {children}
-      <Body {...cd} onChange={handleChange}>
-        <Handler {...cd} />
-      </Body>
-    </LabelContainer>
+      <Input disabled={disabled} checked={checked} onChange={handleChange} />
+      <ToggleHandler disabled={disabled} checked={checked} />
+    </Label>
   )
 }
