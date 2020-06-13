@@ -2,7 +2,7 @@
 import { jsx, Text, Label, LabelProps } from 'theme-ui'
 import { FC, ChangeEvent, forwardRef, ReactNode } from 'react'
 import { CheckDisable, Change, ForwardRef, SizeProps } from '../common-types'
-import { ifStyle, toPx } from '../../lib/if-prop'
+import { ifStyle, toPx } from '../../lib/utils'
 
 type ToggleProps = Partial<CheckDisable> & Change
 
