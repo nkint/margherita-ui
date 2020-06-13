@@ -22,10 +22,9 @@ const ToggleWithState = ({ label, ...rest }: { label: string } & SizeProps) => {
   )
 }
 
-export const AllState = () => {
+export const Sizes = () => {
   return (
     <Box m={2}>
-      <ToggleWithState label="Toggle checkbox" />
       <ToggleWithState
         label="Toggle with inline label"
         sx={{
@@ -46,13 +45,38 @@ export const AllState = () => {
         height={20}
         width={35}
       />
+    </Box>
+  )
+}
+
+export const AllState = () => {
+  return (
+    <Box m={2}>
+      <Toggle
+        checked={true}
+        disabled={false}
+        onChange={action('This is not going to happen')}
+      >
+        Checked enabled
+      </Toggle>
+
+      <Box>
+        <Toggle
+          checked={false}
+          disabled={false}
+          onChange={action('This is not going to happen')}
+        >
+          Unchecked enabled
+        </Toggle>
+      </Box>
+
       <Box>
         <Toggle
           checked={true}
           disabled={true}
           onChange={action('This is not going to happen')}
         >
-          Disabled checked
+          Checked disabled
         </Toggle>
       </Box>
 
@@ -61,7 +85,7 @@ export const AllState = () => {
         disabled={true}
         onChange={action('This is not going to happen')}
       >
-        Disabled unchecked
+        Unchecked disabled
       </Toggle>
     </Box>
   )
