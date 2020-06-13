@@ -1,8 +1,8 @@
 /** @jsx jsx */
 import { jsx, Text, Label, LabelProps } from 'theme-ui'
 import { FC, ChangeEvent, forwardRef, ReactNode } from 'react'
-import { CheckDisable, Change, ForwardRef } from '../common-types'
-import { ifStyle } from '../../lib/if-prop'
+import { CheckDisable, Change, ForwardRef, SizeProps } from '../common-types'
+import { ifStyle, toPx } from '../../lib/if-prop'
 
 type ToggleProps = Partial<CheckDisable> & Change
 
@@ -27,12 +27,18 @@ const Input: FC<CheckDisable & Change> = ({ onChange = () => {}, ...rest }) => (
 
 const TOGGLE_HEIGHT = '0.875rem'
 
-const ToggleHandler: FC<CheckDisable> = ({ checked, disabled, ...rest }) => (
+const ToggleHandler: FC<CheckDisable & SizeProps> = ({
+  checked,
+  disabled,
+  width,
+  height,
+  ...rest
+}) => (
   <div
     sx={{
-      width: '1.75rem',
-      height: TOGGLE_HEIGHT,
-      borderRadius: TOGGLE_HEIGHT,
+      width: toPx(width) || '1.75rem',
+      height: toPx(height) || TOGGLE_HEIGHT,
+      borderRadius: toPx(height) || TOGGLE_HEIGHT,
       transitionDelay: '0.12s',
       transitionDuration: '0.2s',
       transitionProperty: 'background, border',
@@ -51,8 +57,8 @@ const ToggleHandler: FC<CheckDisable> = ({ checked, disabled, ...rest }) => (
   >
     <span
       sx={{
-        width: `calc(${TOGGLE_HEIGHT} - 3px)`,
-        height: `calc(${TOGGLE_HEIGHT} - 3px)`,
+        width: `calc(${toPx(height) || TOGGLE_HEIGHT} - 3px)`,
+        height: `calc(${toPx(height) || TOGGLE_HEIGHT} - 3px)`,
         position: 'absolute',
         top: '50%',
         left: '1px',
@@ -63,7 +69,7 @@ const ToggleHandler: FC<CheckDisable> = ({ checked, disabled, ...rest }) => (
         bg: 'background',
         boxShadow: 'rgba(0, 0, 0, 0.2) 0 1px 2px 0, rgba(0, 0, 0, 0.2) 0 1px 3px 0',
         ...ifStyle(checked, {
-          left: `calc(100% - (${TOGGLE_HEIGHT} - 2px))`,
+          left: `calc(100% - (${toPx(height) || TOGGLE_HEIGHT} - 2px))`,
           boxShadow: 'none',
         }),
         ...ifStyle(disabled, {
@@ -99,9 +105,12 @@ export const Wrapper: ForwardRef<
 
 export const Toggle: ForwardRef<
   HTMLLabelElement,
-  ToggleProps & { children: ReactNode }
+  ToggleProps & SizeProps & { children: ReactNode }
 > = forwardRef(
-  ({ disabled = false, checked = false, onChange, children, ...rest }, ref) => {
+  (
+    { disabled = false, checked = false, onChange, children, width, height, ...rest },
+    ref,
+  ) => {
     return (
       <Wrapper disabled={disabled} {...rest} ref={ref}>
         <Text>{children}</Text>
@@ -109,6 +118,8 @@ export const Toggle: ForwardRef<
         <ToggleHandler
           disabled={disabled}
           checked={checked}
+          width={width}
+          height={height}
           data-testid="ToggleHandler"
         />
       </Wrapper>

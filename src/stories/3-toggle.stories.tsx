@@ -2,10 +2,11 @@ import React, { useState } from 'react'
 import { action } from '@storybook/addon-actions'
 import { Box } from 'theme-ui'
 import { Toggle } from '../components/Toggle'
+import { SizeProps } from '../components/common-types'
 
 export default { title: 'Toggle' }
 
-const ToggleWithState = ({ label, ...rest }: { label: string }) => {
+const ToggleWithState = ({ label, ...rest }: { label: string } & SizeProps) => {
   const [checked, setChecked] = useState(false)
   return (
     <Box>
@@ -35,7 +36,16 @@ export const AllState = () => {
           },
         }}
       />
-
+      <ToggleWithState
+        label="Toggle with different size (height: 2rem)"
+        height="2rem"
+        width="3.5rem"
+      />
+      <ToggleWithState
+        label="Toggle with different size (height: 20) will be converted to px"
+        height={20}
+        width={35}
+      />
       <Box>
         <Toggle
           checked={true}
