@@ -9,11 +9,18 @@ export type SizeProps = {
   height?: string | number
 }
 
-export type CheckDisable = {
-  checked: boolean
+export type Disabled = {
   disabled: boolean
 }
 
-export type Change = {
-  onChange?: (checked: boolean) => void
+export type Check = {
+  checked: boolean
+}
+
+export type ChangeBoolean = {
+  onChange?: (value: boolean) => void
+}
+
+export type ChangeNumber = {
+  onChange?: (value: number) => void
 }

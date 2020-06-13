@@ -1,12 +1,16 @@
 /** @jsx jsx */
 import { jsx, Text, Label, LabelProps } from 'theme-ui'
 import { FC, ChangeEvent, forwardRef, ReactNode } from 'react'
-import { CheckDisable, Change, ForwardRef, SizeProps } from '../common-types'
+import { Check, Disabled, ForwardRef, SizeProps, ChangeBoolean } from '../common-types'
 import { ifStyle, toPx } from '../../lib/if-prop'
+import { disabledCursor } from '../common-style'
 
-type ToggleProps = Partial<CheckDisable> & Change
+type ToggleProps = Partial<Disabled & Check> & ChangeBoolean
 
-const Input: FC<CheckDisable & Change> = ({ onChange = () => {}, ...rest }) => (
+const Input: FC<Check & Disabled & ChangeBoolean> = ({
+  onChange = () => {},
+  ...rest
+}) => (
   <input
     data-testid="ToggleInput"
     type="checkbox"
@@ -27,7 +31,7 @@ const Input: FC<CheckDisable & Change> = ({ onChange = () => {}, ...rest }) => (
 
 const TOGGLE_HEIGHT = '0.875rem'
 
-const ToggleHandler: FC<CheckDisable & SizeProps> = ({
+const ToggleHandler: FC<Check & Disabled & SizeProps> = ({
   checked,
   disabled,
   width,
@@ -70,7 +74,6 @@ const ToggleHandler: FC<CheckDisable & SizeProps> = ({
         boxShadow: 'rgba(0, 0, 0, 0.2) 0 1px 2px 0, rgba(0, 0, 0, 0.2) 0 1px 3px 0',
         ...ifStyle(checked, {
           left: `calc(100% - (${toPx(height) || TOGGLE_HEIGHT} - 2px))`,
-          boxShadow: 'none',
         }),
         ...ifStyle(disabled, {
           bg: 'darkGray',
@@ -82,26 +85,25 @@ const ToggleHandler: FC<CheckDisable & SizeProps> = ({
   </div>
 )
 
-export const Wrapper: ForwardRef<
-  HTMLLabelElement,
-  Partial<CheckDisable> & LabelProps
-> = forwardRef(({ disabled, ...rest }, ref) => (
-  <Label
-    ref={ref}
-    sx={{
-      // '-webkit-tap-highlight-color': '0',
-      display: 'inline-block',
-      verticalAlign: 'middle',
-      whiteSpace: 'nowrap',
-      userSelect: 'none',
-      py: 1,
-      px: 0,
-      position: 'relative',
-      cursor: disabled ? 'not-allowed' : 'pointer',
-    }}
-    {...rest}
-  />
-))
+export const Wrapper: ForwardRef<HTMLLabelElement, Disabled & LabelProps> = forwardRef(
+  ({ disabled, ...rest }, ref) => (
+    <Label
+      ref={ref}
+      sx={{
+        // '-webkit-tap-highlight-color': '0',
+        display: 'inline-block',
+        verticalAlign: 'middle',
+        whiteSpace: 'nowrap',
+        userSelect: 'none',
+        py: 1,
+        px: 0,
+        position: 'relative',
+        ...disabledCursor(disabled),
+      }}
+      {...rest}
+    />
+  ),
+)
 
 export const Toggle: ForwardRef<
   HTMLLabelElement,
