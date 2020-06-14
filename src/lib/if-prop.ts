@@ -7,6 +7,3 @@ export const ifStyle = (
 ) => {
   return condition ? style : elseStyle
 }
-
-export const toPx = (size?: number | string): string | undefined =>
-  typeof size === 'number' ? `${size}px` : size
