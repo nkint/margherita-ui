@@ -2,7 +2,6 @@ import React from 'react'
 import { screen, render, fireEvent } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { Toggle } from './Toggle'
-import { theme } from '../../theme'
 
 describe('Toggle Component', () => {
   it('Should work as expected', () => {
