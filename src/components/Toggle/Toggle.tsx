@@ -30,13 +30,11 @@ const Input: FC<Check & Disabled & ChangeBoolean> = ({
   />
 )
 
-const TOGGLE_HEIGHT = '0.875rem'
-
 const ToggleHandler: FC<Check & Disabled & SizeProps> = ({
   checked,
   disabled,
-  width = 0,
-  height = 0,
+  width = 2,
+  height = 1,
   ...rest
 }) => {
   const w = usePx(width)
@@ -44,9 +42,9 @@ const ToggleHandler: FC<Check & Disabled & SizeProps> = ({
   return (
     <div
       sx={{
-        width: w || '1.75rem',
-        height: h || TOGGLE_HEIGHT,
-        borderRadius: h || TOGGLE_HEIGHT,
+        width: w,
+        height: h,
+        borderRadius: h,
         transitionDelay: '0.12s',
         transitionDuration: '0.2s',
         transitionProperty: 'background, border',
@@ -65,8 +63,8 @@ const ToggleHandler: FC<Check & Disabled & SizeProps> = ({
     >
       <span
         sx={{
-          width: `calc(${h || TOGGLE_HEIGHT} - 3px)`,
-          height: `calc(${h || TOGGLE_HEIGHT} - 3px)`,
+          width: `calc(${h} - 3px)`,
+          height: `calc(${h} - 3px)`,
           position: 'absolute',
           top: '50%',
           left: '1px',
@@ -75,9 +73,9 @@ const ToggleHandler: FC<Check & Disabled & SizeProps> = ({
           borderRadius: '50%',
           border: '1px solid transparent',
           bg: 'background',
-          boxShadow: 'rgba(0, 0, 0, 0.2) 0 1px 2px 0, rgba(0, 0, 0, 0.2) 0 1px 3px 0',
+          boxShadow: 1,
           ...ifStyle(checked, {
-            left: `calc(100% - (${h || TOGGLE_HEIGHT} - 2px))`,
+            left: `calc(100% - (${h} - 2px))`,
           }),
           ...ifStyle(disabled, {
             bg: 'darkGray',
@@ -112,7 +110,7 @@ export const Wrapper: ForwardRef<HTMLLabelElement, Disabled & LabelProps> = forw
 
 export const Toggle: ForwardRef<
   HTMLLabelElement,
-  ToggleProps & SizeProps & { children: ReactNode }
+  ToggleProps & LabelProps & SizeProps & { children?: ReactNode }
 > = forwardRef(
   (
     { disabled = false, checked = false, onChange, children, width, height, ...rest },
