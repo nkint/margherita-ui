@@ -30,9 +30,7 @@ const Input: FC<Check & Disabled & ChangeBoolean> = ({
   />
 )
 
-const ToggleHandler: FC<Check & Disabled & SizeProps> = ({
-  checked,
-  disabled,
+const ToggleHandler: FC<SizeProps> = ({
   width = 2,
   height = 1,
   ...rest
@@ -54,11 +52,21 @@ const ToggleHandler: FC<Check & Disabled & SizeProps> = ({
         border: '1px solid transparent',
         bg: 'lightGray',
         p: 0,
-        ...ifStyle(disabled, { borderColor: 'darkGray' }),
-        ...ifStyle(checked, {
+        'input:disabled + &': {
+          borderColor: 'darkGray',
+          span: {
+            bg: 'darkGray',
+            boxShadow: 'none',
+            borderColor: 'darkGray',
+          },
+        },
+        'input:checked + &': {
           bg: 'primary',
-        }),
-        ...ifStyle(checked && disabled, { bg: 'lightGray' }),
+          span: {
+            left: `calc(100% - (${h} - 2px))`,
+          },
+        },
+        'input:checked:disabled &': { bg: 'lightGray' },
       }}
       {...rest}
     >
@@ -75,14 +83,6 @@ const ToggleHandler: FC<Check & Disabled & SizeProps> = ({
           border: '1px solid transparent',
           bg: 'background',
           boxShadow: 1,
-          ...ifStyle(checked, {
-            left: `calc(100% - (${h} - 2px))`,
-          }),
-          ...ifStyle(disabled, {
-            bg: 'darkGray',
-            boxShadow: 'none',
-            borderColor: 'darkGray',
-          }),
         }}
       />
     </div>
@@ -122,13 +122,7 @@ export const Toggle: TT = forwardRef(
       <Wrapper disabled={disabled} {...rest} ref={ref}>
         <Text>{children}</Text>
         <Input disabled={disabled} checked={checked} onChange={onChange} />
-        <ToggleHandler
-          disabled={disabled}
-          checked={checked}
-          width={width}
-          height={height}
-          data-testid="ToggleHandler"
-        />
+        <ToggleHandler width={width} height={height} data-testid="ToggleHandler" />
       </Wrapper>
     )
   },

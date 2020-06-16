@@ -22,6 +22,10 @@ describe('Toggle Component', () => {
   })
 
   describe('Should get width and height', () => {
+    afterEach(() => {
+      jest.clearAllMocks()
+    })
+
     it('from theme', () => {
       const theme = {
         space: [0, '0.5rem', '1rem', '2rem'],
@@ -62,11 +66,10 @@ describe('Toggle Component', () => {
       }
       render(
         <ThemeProvider theme={theme}>
-          <Toggle width="5px" height="10px">
-            My accessible Toggle
-          </Toggle>
+          <Toggle sx={{ width: '5px', height: '10px' }}>My accessible Toggle</Toggle>
         </ThemeProvider>,
       )
+      expect(screen.getByTestId('ToggleHandler')).toBeInTheDocument()
       expect(screen.getByTestId('ToggleHandler')).toHaveStyle(`width: 5px`)
       expect(screen.getByTestId('ToggleHandler')).toHaveStyle(`height: 10px`)
     })
