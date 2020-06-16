@@ -39,6 +39,7 @@ const ToggleHandler: FC<Check & Disabled & SizeProps> = ({
 }) => {
   const w = usePx(width)
   const h = usePx(height)
+
   return (
     <div
       sx={{
@@ -93,7 +94,6 @@ export const Wrapper: ForwardRef<HTMLLabelElement, Disabled & LabelProps> = forw
     <Label
       ref={ref}
       sx={{
-        // '-webkit-tap-highlight-color': '0',
         display: 'inline-block',
         verticalAlign: 'middle',
         whiteSpace: 'nowrap',
@@ -108,10 +108,12 @@ export const Wrapper: ForwardRef<HTMLLabelElement, Disabled & LabelProps> = forw
   ),
 )
 
-export const Toggle: ForwardRef<
+type TT = ForwardRef<
   HTMLLabelElement,
-  ToggleProps & LabelProps & SizeProps & { children?: ReactNode }
-> = forwardRef(
+  ToggleProps & Omit<LabelProps, 'onChange'> & SizeProps & { children?: ReactNode }
+>
+
+export const Toggle: TT = forwardRef(
   (
     { disabled = false, checked = false, onChange, children, width, height, ...rest },
     ref,

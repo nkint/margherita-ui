@@ -1,4 +1,9 @@
-import { ForwardRefExoticComponent, PropsWithoutRef, RefAttributes } from 'react'
+import {
+  ForwardRefExoticComponent,
+  PropsWithoutRef,
+  RefAttributes,
+  FormEvent,
+} from 'react'
 
 export type ForwardRef<T, P> = ForwardRefExoticComponent<
   PropsWithoutRef<P> & RefAttributes<T>
@@ -18,6 +23,7 @@ export type Check = {
 }
 
 export type ChangeBoolean = {
+  //onChange?: ((value: boolean) => void) | ((event: FormEvent<HTMLLabelElement>) => void)
   onChange?: (value: boolean) => void
 }
 

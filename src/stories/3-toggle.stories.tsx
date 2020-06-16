@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { action } from '@storybook/addon-actions'
-import { Box } from 'theme-ui'
+import { Box, Label } from 'theme-ui'
 import { Toggle } from '../components/Toggle'
 import { SizeProps } from '../components/common-types'
 
@@ -52,7 +52,10 @@ export const Sizes = () => {
 export const AllState = () => {
   return (
     <Box m={2}>
+      <Label backgroundColor={'dodgerblue'}>foo</Label>
+
       <Toggle
+        color={'black'}
         checked={true}
         disabled={false}
         onChange={action('This is not going to happen')}
