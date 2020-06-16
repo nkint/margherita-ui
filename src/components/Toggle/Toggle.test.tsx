@@ -66,7 +66,9 @@ describe('Toggle Component', () => {
       }
       render(
         <ThemeProvider theme={theme}>
-          <Toggle sx={{ width: '5px', height: '10px' }}>My accessible Toggle</Toggle>
+          <Toggle sx={{ 'div, span': { width: '5px', height: '10px' } }}>
+            My accessible Toggle
+          </Toggle>
         </ThemeProvider>,
       )
       expect(screen.getByTestId('ToggleHandler')).toBeInTheDocument()
